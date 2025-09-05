@@ -1,0 +1,69 @@
+import os
+import requests
+from datetime import datetime
+from pydantic import BaseModel, Field
+
+
+class Tools:
+    def __init__(self):
+        pass
+
+    # Add your custom tools using pure Python code here, make sure to add type hints and descriptions
+
+    def __init__(self):
+        self.citation = False  # 不需要外部引用
+        self.base_url = "http://192.168.1.45:5006"
+
+    def _get_headers(self):
+        return {"X-Local-Token": "dev-token"}
+
+    def get_current_file(self):
+        """获取当前活动文件内容（包含完整源代码）。"""
+        r = requests.get(
+            f"{self.base_url}/v1/current-file", headers=self._get_headers()
+        )
+        return r.text
+
+    def get_current_context(self):
+        """获取光标附近的代码上下文（前后几行代码）。"""
+        r = requests.get(
+            f"{self.base_url}/v1/current-context", headers=self._get_headers()
+        )
+        return r.text
+
+    def get_solution_tree(self):
+        """ "获取项目文件树（解决方案内所有文件）。"""
+        r = requests.get(
+            f"{self.base_url}/v1/solution-tree", headers=self._get_headers()
+        )
+        return r.json()
+
+    def get_files(self, paths: list[str], full: bool = True):
+        """
+        批量获取本地文件内容。
+        :param paths: 文件路径列表
+        :param full: 是否返回完整 DTO（否则仅返回 snippet）
+        """
+        r = requests.post(
+            f"{self.base_url}/v1/files",
+            headers=self._get_headers(),
+            json={"paths": paths, "full": full},
+        )
+        r.raise_for_status()
+        return r.json()
+
+    def activate_file(self, file_name: str) -> dict:
+        """
+        激活指定文件（如果该文件存在于最后一次上传的解决方案树中，则切换到该文件）
+        :param file_name: 文件名，例如 'Program.cs'
+        :return: 服务端返回的 JSON
+        """
+        r = requests.post(
+            f"{self.base_url}/v1/activate-file",
+            headers=self._get_headers(),
+            params={"name": file_name},
+        )
+        if r.status_code == 404:
+            raise FileNotFoundError(f"文件 {file_name} 未在解决方案中找到")
+        r.raise_for_status()
+        return r.json()

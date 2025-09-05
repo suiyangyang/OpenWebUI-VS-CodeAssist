@@ -1,0 +1,6 @@
+@VsBridgeNet8_HostAddress = http://localhost:5141
+
+GET {{VsBridgeNet8_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
