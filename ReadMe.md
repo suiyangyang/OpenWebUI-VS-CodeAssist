@@ -1,5 +1,11 @@
 ## EN
 
+### Capabilities
+
+1.Read the currently active file context in Visual Studio and use it as a basis for programming.
+2.Read the contents of files within the project based on referenced classes to provide programming suggestions.
+3.Allow developers with overly complex project trees to use voice input to have the model open specific files.
+
 ### ✅ Setup Instructions:
 
 1. Build the `VsBridge` project and install the VS extension. In Visual Studio's Options, locate **VsBridge**, and configure your personal token and service settings.
@@ -9,7 +15,7 @@
    self.base_url = "http://192.168.1.45:5006"
 
 Replace it with the IP address and port of your locally deployed VsBridgeNet8 service (e.g., http://localhost:5006).
-4. Add the following prompt to your preferred model:
+4. Add the following prompt to your preferred model(Please adjust according to the model used and the actual response):
 
 ### ✅ Prompt
 You are a real-time code assistant for Visual Studio, running within the Open-WebUI environment.
@@ -54,12 +60,17 @@ Please strictly follow this workflow.
 
 ## CN
 
+### 可以做到什么
+1. 读取VS中当前激活的文件上下文，以此为依据进行编程
+2. 可以根据引用类读取项目下的文件内容作为依据进行编程建议
+3. 项目树过于复杂的编程者可以通过语音输入让模型帮你打开某些文件
+
 ### ✅ 使用步骤：
 
 1. 编译VsBridge安装VS插件，在选项中找到VsBridge，设置你自己的token和服务设置
 2. 发布VsBridgeNet8到本地文件，设为开机启动
 3. 打开Open-webui并用管理员登录，在【工作空间】-【工具】中新建工具，将VS Status.txt中的 self.base_url = "http://192.168.1.45:5006" 改为自己本地部署的【VsBridgeNet8】IP和端口
-4. 在自己使用的模型中加入以下Prompt
+4. 在自己使用的模型中加入以下Prompt（请根据实际使用进行调整，当前使用模型为Qwen3-a3b-instruct-30b）
 
 ### ✅ Prompt
 
