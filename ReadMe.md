@@ -3,7 +3,9 @@
 ### Capabilities
 
 1.Read the currently active file context in Visual Studio and use it as a basis for programming.
+
 2.Read the contents of files within the project based on referenced classes to provide programming suggestions.
+
 3.Allow developers with overly complex project trees to use voice input to have the model open specific files.
 
 ### ✅ Setup Instructions:
